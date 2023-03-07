@@ -7,6 +7,16 @@
     ".": "./dist/index.js",
     "./helper": "./dist/helper/index.js"
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.ts"
+      ],
+      "./helper": [
+        "./dist/helper/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc",
