@@ -1,0 +1,38 @@
+{
+  "name": "@mtripg6666tdr/oceanic-command-resolver",
+  "version": "1.0.0-alpha.0",
+  "description": "Message wrapper for oceanic.js to absorb the differences between Message and Interactions, with some helper classes included",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./helper/*": "./dist/helper/*.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "docs": "typedoc ./src/index.ts --excludePrivate",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [],
+  "author": "mtripg6666tdr",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.11.19",
+    "@types/ws": "^8.5.4",
+    "dotenv": "^16.0.3",
+    "oceanic.js": "^1.5.0",
+    "typedoc": "^0.23.24",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "oceanic.js": "^1.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtripg6666tdr/oceanic.js-command-resolver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mtripg6666tdr/oceanic.js-command-resolver/issues"
+  },
+  "readme": "https://github.com/mtripg6666tdr/oceanic.js-command-resolver#readme"
+}

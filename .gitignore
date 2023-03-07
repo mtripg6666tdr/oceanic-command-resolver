@@ -1,0 +1,7 @@
+dist
+node_modules
+typings
+docs/**
+*.temp.*
+*.tmp.*
+.env
