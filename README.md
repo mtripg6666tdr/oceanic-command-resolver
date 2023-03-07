@@ -3,10 +3,14 @@
 # oceanic-command-resolver
 ![npm](https://img.shields.io/npm/v/@mtripg6666tdr/oceanic-command-resolver)
 
-By using this package, both `ComamndInteraction` and `Message` will be resolved as unified `CommandMessage` and you can code with `CommandMessage` with no considering the way the command passed.  
-![image](https://user-images.githubusercontent.com/56076195/216804553-e6b52c10-7a7d-49fb-b9d1-2ae230213cb9.png)
+Making a bot for Discord sometimes makes us feel it is difficult now, after the birth of slash-commands and other components.  
+However, all interaction emitted by those will be finally a Message, so all messages, command-interactions and components-interactions can be seen as some kind of "command", sent by users. This package was born from and based on this theory.
 
-Therefore you can support Message-based-command and Interaction-based-command at once, without any verbose codes.  
+
+This package will resolve all of `ComamndInteraction`, `ComponentInteraction` and `Message` as unified `CommandMessage` and you can code with `CommandMessage` with no considering the way the command was passed.  
+![oceanic-command-resolver-graph](https://user-images.githubusercontent.com/56076195/223353150-36136315-dd41-4e05-90d3-e79e4d0e0cdb.jpg)
+
+Therefore you can support Message-based-command, Component-based-command, and Interaction-based-command at once, without any redundant codes.  
 
 ## Examples
 - [Quick example to handle commands](example/index.js)
@@ -37,6 +41,11 @@ Therefore you can support Message-based-command and Interaction-based-command at
 *... and so on...*
 
 You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic-command-resolver/).  
+
+## Related
+Packages based on the theory
+* [djs-command-resolver](https://github.com/mtripg6666tdr/djs-command-resolver) (*\*deprecated*) - for discord.js
+* [eris-command-resolver](https://github.com/mtripg6666tdr/eris-command-resolver) - for eris
 
 ## License
 [LICENSE](LICENSE)
