@@ -9,3 +9,5 @@ docs
 .husky/**
 example/**
 .env
+*.temp.*
+*.tmp.*
