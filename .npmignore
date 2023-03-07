@@ -8,3 +8,4 @@ docs
 .git*
 .husky/**
 example/**
+.env
