@@ -5,12 +5,12 @@
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./helper/*": "./dist/helper/*.js"
+    "./helper": "./dist/helper/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc",
-    "docs": "typedoc ./src/index.ts --excludePrivate",
+    "docs": "typedoc ./src/document-entry.ts --excludePrivate",
     "prepublishOnly": "npm run build"
   },
   "keywords": [],
