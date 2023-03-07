@@ -30,10 +30,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mtripg6666tdr/oceanic.js-command-resolver.git"
+    "url": "git+https://github.com/mtripg6666tdr/oceanic-command-resolver.git"
   },
   "bugs": {
-    "url": "https://github.com/mtripg6666tdr/oceanic.js-command-resolver/issues"
+    "url": "https://github.com/mtripg6666tdr/oceanic-command-resolver/issues"
   },
-  "readme": "https://github.com/mtripg6666tdr/oceanic.js-command-resolver#readme"
+  "readme": "https://github.com/mtripg6666tdr/oceanic-command-resolver#readme"
 }
