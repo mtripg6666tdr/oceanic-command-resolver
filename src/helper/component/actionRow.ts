@@ -4,7 +4,7 @@ import { MessageActionRow, ComponentTypes } from "oceanic.js";
 import { HelperBase } from "../base";
 import { MessageButtonBuilder } from "./button";
 
-type AnyMessageActionRowComponentsBuilder = MessageActionRowComponentsBuilder<any>;
+export type AnyMessageActionRowComponentsBuilder = MessageActionRowComponentsBuilder<any>;
 
 /**
  * a helper to build ActionRow for oceanic.js

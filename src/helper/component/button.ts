@@ -1,7 +1,7 @@
 import { ButtonComponent, ComponentTypes, Constants, PartialEmoji } from "oceanic.js";
 import { MessageActionRowComponentsBuilder } from "./actionRowComponent";
 
-type ButtonStyles = 
+export type ButtonStyles = 
   |"PRIMARY"
   |"SECONDARY"
   |"SUCCESS"

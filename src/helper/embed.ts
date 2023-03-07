@@ -6,7 +6,7 @@
 import type { EmbedAuthorOptions, EmbedField, EmbedFooter, EmbedFooterOptions, EmbedImageOptions, EmbedOptions } from "oceanic.js";
 import { HelperBase } from "./base";
 
-type ColorResolvable = number|[number, number, number];
+export type ColorResolvable = number|[number, number, number];
 
 export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
   private data:EmbedOptions = {};
