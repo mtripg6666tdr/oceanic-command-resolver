@@ -150,14 +150,22 @@ export class CommandMessage {
         throw new Error("No interaction cached or no cached guild");
       }
 
-      let _opt: MessageOptions & {ephemeral?: boolean} = typeof options === "string" ? {content: options} : Object.assign({}, options);
+      let _opt: MessageOptions = typeof options === "string" ? {content: options} : Object.assign({}, options);
       delete _opt.ephemeral;
+      delete _opt.editOriginalMessage;
       let mes:Message<AnyGuildTextChannel>  = null!;
 
-      if(this._interaction.acknowledged){
-        mes = await this._interaction.editOriginal(_opt);
+      if(this._interaction.type === InteractionTypes.APPLICATION_COMMAND || (typeof options === "object" && options.editOriginalMessage)){
+        if(this._interaction.acknowledged){
+          mes = await this._interaction.editOriginal(_opt);
+        }else{
+          await this._interaction.createMessage(Object.assign(_opt, {
+            flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
+          }));
+          mes = await this._interaction.getOriginal();
+        }
       }else{
-        await this._interaction.createMessage(Object.assign(_opt, {
+        await this._interaction.channel.createMessage(Object.assign(_opt, {
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
         }));
         mes = await this._interaction.getOriginal();
