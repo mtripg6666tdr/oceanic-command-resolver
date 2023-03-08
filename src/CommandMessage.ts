@@ -154,15 +154,8 @@ export class CommandMessage {
       delete _opt.ephemeral;
       let mes:Message<AnyGuildTextChannel>  = null!;
 
-      if(this._interaction.type === InteractionTypes.APPLICATION_COMMAND){
-        if(this._interaction.acknowledged){
-          mes = await this._interaction.editOriginal(_opt);
-        }else{
-          await this._interaction.createMessage(Object.assign(_opt, {
-            flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
-          }));
-          mes = await this._interaction.getOriginal();
-        }
+      if(this._interaction.acknowledged){
+        mes = await this._interaction.editOriginal(_opt);
       }else{
         await this._interaction.createMessage(Object.assign(_opt, {
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
