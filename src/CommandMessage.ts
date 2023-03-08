@@ -165,10 +165,15 @@ export class CommandMessage {
           mes = await this._interaction.getOriginal();
         }
       }else{
-        await this._interaction.channel.createMessage(Object.assign(_opt, {
+        const original = await this._interaction.getOriginal();
+        mes = await this._interaction.channel.createMessage(Object.assign({
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
-        }));
-        mes = await this._interaction.getOriginal();
+          messageReference: {
+            messageID: original.id,
+            failIfNotExists: false,
+            ...(typeof options === "object" && options.messageReference || {})
+          },
+        }, _opt));
       }
       this._interactionReplied = true;
       return this._responseMessage = ResponseMessage.createFromInteraction(this._interaction, mes as Message<AnyGuildTextChannel>, this);
