@@ -1,4 +1,4 @@
-import type { AnyGuildTextChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, Message } from "oceanic.js";
+import { AnyGuildTextChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, InteractionTypes, Message } from "oceanic.js";
 import type { CommandMessage } from "./CommandMessage";
 
 import { createMessageUrl } from "./util";
@@ -54,7 +54,7 @@ export class ResponseMessage {
    * @returns Edited ResponseMessage
    */
   async edit(options: EditMessageOptions | string):Promise<ResponseMessage>{
-    if(this.isMessage){
+    if(this.isMessage || this._interaction!.type === InteractionTypes.MESSAGE_COMPONENT){
       let _opt: EditMessageOptions = null!;
       if(typeof options === "string"){
         _opt = {
