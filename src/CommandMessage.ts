@@ -158,6 +158,11 @@ export class CommandMessage {
       if(this._interaction.type === InteractionTypes.APPLICATION_COMMAND || (typeof options === "object" && options.editOriginalMessage)){
         if(this._interaction.acknowledged){
           mes = await this._interaction.editOriginal(_opt);
+        }else if(_opt.files){
+          await this._interaction.defer();
+          mes = await this._interaction.createFollowup(Object.assign(_opt, {
+            flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
+          }));
         }else{
           await this._interaction.createMessage(Object.assign(_opt, {
             flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
