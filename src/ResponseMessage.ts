@@ -1,4 +1,4 @@
-import { AnyGuildTextChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, InteractionTypes, Message } from "oceanic.js";
+import { AnyGuildTextChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, InteractionTypes, Message, ModalSubmitInteraction } from "oceanic.js";
 import type { CommandMessage } from "./CommandMessage";
 
 import { createMessageUrl } from "./util";
@@ -8,7 +8,7 @@ import { createMessageUrl } from "./util";
  */
 export class ResponseMessage {
   protected isMessage = false;
-  protected _interaction: CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|null = null;
+  protected _interaction: CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>|null = null;
   protected _message: Message<AnyGuildTextChannel> = null!;
   protected _commandMessage: CommandMessage = null!;
   protected constructor(){}
@@ -37,7 +37,11 @@ export class ResponseMessage {
    * @returns new ResponseMessage instance
    * @internal
    */
-  static createFromInteraction(interaction:CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>, message:Message<AnyGuildTextChannel>, commandMessage:CommandMessage){
+  static createFromInteraction(
+    interaction:CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>,
+    message:Message<AnyGuildTextChannel>,
+    commandMessage:CommandMessage
+  ){
     const me = new ResponseMessage();
     me.isMessage = false;
     me._interaction = interaction;

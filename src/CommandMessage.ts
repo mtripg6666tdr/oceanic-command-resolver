@@ -8,7 +8,8 @@ import {
   InteractionOptions,
   InteractionTypes,
   Message,
-  MessageFlags
+  MessageFlags,
+  ModalSubmitInteraction
 } from "oceanic.js";
 import { defaultConfig } from "./config";
 import type { MessageOptions } from "./messageOptions";
@@ -22,7 +23,7 @@ import { createMessageUrl } from "./util";
 export class CommandMessage {
   protected isMessage = false;
   protected _message: Message<AnyGuildTextChannel>|null = null;
-  protected _interaction: CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|null = null!;
+  protected _interaction: CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>|null = null!;
   protected _interactionOption: InteractionOptions[]|null = null;
   protected _interactionReplied = false;
   protected _client: Client = null!;
@@ -62,12 +63,18 @@ export class CommandMessage {
 
   static createFromInteraction(interaction:CommandInteraction<AnyGuildTextChannel>):CommandMessage;
   static createFromInteraction(interaction:ComponentInteraction<any, AnyGuildTextChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
+  static createFromInteraction(interaction:ModalSubmitInteraction<AnyGuildTextChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
   /**
    * Initialize this from interaction
    * @param interaction Interaction that contains command
    * @returns If interaction has already been defered, this will return new CommandMessage. otherwise return Promise<CommandMessage>
    */
-  static createFromInteraction(interaction:CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>, command?:string, options?:string[], rawOptions?:string){
+  static createFromInteraction(
+    interaction:CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>,
+    command?:string,
+    options?:string[],
+    rawOptions?:string
+  ){
     const me = new CommandMessage();
     me.isMessage = false;
     me._interaction = interaction;
@@ -299,7 +306,7 @@ export class CommandMessage {
       ? this._message!.attachments 
       : this._interaction!.type === InteractionTypes.APPLICATION_COMMAND && [...(this._interaction!.data as ApplicationCommandInteractionData).resolved.attachments.values()] || [];
   }
-  
+
   /**
    * Command name which was resolved
    */
@@ -338,8 +345,8 @@ export class CommandMessage {
     let { command, options, rawOptions } = this.parseCommand(content, prefixLength, textNormalizer);
     command = command.toLowerCase();
     return {
-      command: command, 
-      rawOptions: rawOptions, 
+      command: command,
+      rawOptions: rawOptions,
       options: options
     };
   }
