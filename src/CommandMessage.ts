@@ -176,6 +176,11 @@ export class CommandMessage {
           }));
           mes = await this._interaction.getOriginal();
         }
+      }else if(this._interaction.type === InteractionTypes.MODAL_SUBMIT){
+        await this._interaction.createMessage(Object.assign({
+          flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
+        }, _opt));
+        mes = await this._interaction.getOriginal();
       }else{
         const original = await this._interaction.getOriginal();
         mes = await this._interaction.channel.createMessage(Object.assign({
