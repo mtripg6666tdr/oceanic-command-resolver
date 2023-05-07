@@ -181,16 +181,15 @@ export class CommandMessage {
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
         }, _opt));
         mes = await this._interaction.getOriginal();
-      }else{
-        const original = await this._interaction.getOriginal();
-        mes = await this._interaction.channel.createMessage(Object.assign({
+      }else if(this._interaction.acknowledged){
+        mes = await this._interaction.createFollowup(Object.assign({
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
-          messageReference: {
-            messageID: original.id,
-            failIfNotExists: false,
-            ...(typeof options === "object" && options.messageReference || {})
-          },
         }, _opt));
+      }else{
+        await this._interaction.createMessage(Object.assign({
+          flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
+        }, _opt));
+        mes = await this._interaction.getOriginal();
       }
       this._interactionReplied = true;
       return this._responseMessage = ResponseMessage.createFromInteraction(this._interaction, mes as Message<AnyGuildTextChannel>, this);
