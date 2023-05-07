@@ -10,7 +10,7 @@ export class MessageInputSelectMenuBuilder extends MessageActionRowComponentsBui
   private _maxValues: number|undefined;
   private _minValues: number|undefined;
   private _placeholder: string|undefined;
-  private _type: ComponentTypes.USER_SELECT | ComponentTypes.MENTIONABLE_SELECT | ComponentTypes.ROLE_SELECT = 0;
+  private _type: ComponentTypes.USER_SELECT | ComponentTypes.MENTIONABLE_SELECT | ComponentTypes.ROLE_SELECT = 0 as any;
 
   constructor(_type: ComponentTypes.USER_SELECT | ComponentTypes.MENTIONABLE_SELECT | ComponentTypes.ROLE_SELECT);
   constructor(_data: UserSelectMenu | MentionableSelectMenu | RoleSelectMenu);
