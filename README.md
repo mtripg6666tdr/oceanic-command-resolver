@@ -49,7 +49,7 @@ You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic
 |>=1.0.0 <1.2.0          |>=1.5.0 <1.7.0|
 |>=1.2.0 <1.3.0          |>=1.7.0 <1.8.0|
 
-> As of May 5, 2023
+> As of May 29, 2023
 
 ## Related
 Packages based on the theory
