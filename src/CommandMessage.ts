@@ -50,6 +50,14 @@ export class CommandMessage {
     return me;
   }
 
+  /**
+   * Create and initialize a new CommandMessage object based on Message, with given pre-parsed options.
+   * @param message The Message object that should be treated as a command.
+   * @param command The command string that the Message indicates.
+   * @param options The command arguments that the Message indicates.
+   * @param rawOptions The raw command arguments text that the Message indicates.
+   * @returns New CommandMessage object.
+   */
   protected static createFromMessageWithParsed(message:Message<AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string){
     const me = new CommandMessage();
     me.isMessage = true;
@@ -61,14 +69,28 @@ export class CommandMessage {
     return me;
   }
 
-  static createFromInteraction(interaction:CommandInteraction<AnyTextableGuildChannel>):CommandMessage;
-  static createFromInteraction(interaction:ComponentInteraction<any, AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
-  static createFromInteraction(interaction:ModalSubmitInteraction<AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
   /**
-   * Initialize this from interaction
-   * @param interaction Interaction that contains command
-   * @returns If interaction has already been defered, this will return new CommandMessage. otherwise return Promise<CommandMessage>
+   * Initialize this from command interaction.
+   * @param interaction CommandInteraction that contains command.
+   * @returns Created CommandMessage object.
    */
+  static createFromInteraction(interaction:CommandInteraction<AnyTextableGuildChannel>):CommandMessage;
+  /**
+   * Initialize this from component interaction.
+   * @param interaction ComponentInteraction that will be treated as a command.
+   * @param command The command string that the interaction intends to execute.
+   * @param options The parsed arguments of the command bound to the interaction.
+   * @param rawOptions The raw arguments text of the command bound to the interaction.
+   */
+  static createFromInteraction(interaction:ComponentInteraction<any, AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
+  /**
+   * Initialize this from modal-submit interaction.
+   * @param interaction ModalSubmitInteraction that will be treated as a command.
+   * @param command The command string that the interaction intends to execute.
+   * @param options The parsed arguments of the command bound to the interaction.
+   * @param rawOptions The raw arguments text of the command bound to the interaction.
+   */
+  static createFromInteraction(interaction:ModalSubmitInteraction<AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
   static createFromInteraction(
     interaction:CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>,
     command?:string,
