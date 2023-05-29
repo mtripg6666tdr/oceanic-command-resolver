@@ -42,6 +42,15 @@ Therefore you can support Message-based-command, Component-based-command, and In
 
 You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic-command-resolver/).  
 
+## Versions
+
+|oceanic-command-resolver|oceanic.js    |
+|------------------------|--------------|
+|>=1.0.0 <1.2.0          |>=1.5.0 <1.7.0|
+|>=1.2.0 <1.3.0          |>=1.7.0 <1.8.0|
+
+> As of May 5, 2023
+
 ## Related
 Packages based on the theory
 * [djs-command-resolver](https://github.com/mtripg6666tdr/djs-command-resolver) (*\*deprecated*) - for discord.js
