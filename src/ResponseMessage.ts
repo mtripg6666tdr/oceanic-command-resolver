@@ -1,5 +1,8 @@
-import { AnyTextableGuildChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, InteractionTypes, Message, ModalSubmitInteraction } from "oceanic.js";
 import type { CommandMessage } from "./CommandMessage";
+import type { AnyTextableGuildChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, Message, ModalSubmitInteraction } from "oceanic.js";
+
+import { InteractionTypes } from "oceanic.js";
+
 
 import { createMessageUrl } from "./util";
 
@@ -20,8 +23,7 @@ export class ResponseMessage {
    * @internal
    */
   static createFromMessage(message: Message<AnyTextableGuildChannel>, commandMessage: CommandMessage){
-    if(message.author.id !== message.channel.client.user.id) 
-      throw new Error("Message is not the response message");
+    if(message.author.id !== message.channel.client.user.id) throw new Error("Message is not the response message");
     const me = new ResponseMessage();
     me.isMessage = true;
     me._message = message;
@@ -38,15 +40,14 @@ export class ResponseMessage {
    * @internal
    */
   static createFromInteraction(
-    interaction:CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>,
-    message:Message<AnyTextableGuildChannel>,
-    commandMessage:CommandMessage
+    interaction: CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>,
+    message: Message<AnyTextableGuildChannel>,
+    commandMessage: CommandMessage
   ){
     const me = new ResponseMessage();
     me.isMessage = false;
     me._interaction = interaction;
-    if(message.author.id !== interaction.channel.client.user.id) 
-      throw new Error("Message is not the response message");
+    if(message.author.id !== interaction.channel.client.user.id) throw new Error("Message is not the response message");
     me._message = message;
     me._commandMessage = commandMessage;
     return me;
@@ -57,20 +58,20 @@ export class ResponseMessage {
    * @param options message content
    * @returns Edited ResponseMessage
    */
-  async edit(options: EditMessageOptions | string):Promise<ResponseMessage>{
+  async edit(options: EditMessageOptions | string): Promise<ResponseMessage>{
     if(this.isMessage || this._interaction!.type === InteractionTypes.MESSAGE_COMPONENT){
       let _opt: EditMessageOptions = null!;
       if(typeof options === "string"){
         _opt = {
-          content: options
-        }
+          content: options,
+        };
       }else{
         _opt = options;
       }
-      const msg = await this._message!.edit(Object.assign({
+      const msg = await this._message.edit(Object.assign({
         allowedMentions: {
-          repliedUser: false
-        }
+          repliedUser: false,
+        },
       }, _opt));
       const result = ResponseMessage.createFromMessage(msg, this._commandMessage);
       this._commandMessage["_responseMessage"] = result;
@@ -82,9 +83,9 @@ export class ResponseMessage {
       const mes = await this._interaction!.editOriginal(Object.assign({
         allowedMentions: {
           repliedUser: false,
-        }
+        },
       }, _opt));
-      const result = ResponseMessage.createFromInteraction(this._interaction!, mes as Message<AnyTextableGuildChannel>, this._commandMessage);
+      const result = ResponseMessage.createFromInteraction(this._interaction!, mes, this._commandMessage);
       this._commandMessage["_responseMessage"] = result;
       return result;
     }
@@ -94,7 +95,7 @@ export class ResponseMessage {
    * CommandMessage bound to this
    * @remarks CommandMessage may be stale
    */
-  get command():CommandMessage{
+  get command(): CommandMessage{
     return this._commandMessage;
   }
 
@@ -102,7 +103,7 @@ export class ResponseMessage {
    * Delete the response message
    */
   async delete(){
-    return await this._message.delete();
+    return this._message.delete();
   }
 
   /**
@@ -110,8 +111,8 @@ export class ResponseMessage {
    * @param emoji reaction emoji
    * @returns message reaction
    */
-  react(emoji:string){
-    return this._message!.createReaction(emoji);
+  react(emoji: string){
+    return this._message.createReaction(emoji);
   }
 
   /**
@@ -218,7 +219,7 @@ export class ResponseMessage {
    */
   async fetch(){
     const result = ResponseMessage.createFromMessage(
-      await this._message.channel.client.rest.channels.getMessage(this._message.channel.id, this._message.id) as Message<AnyTextableGuildChannel>,
+      await this._message.channel.client.rest.channels.getMessage(this._message.channel.id, this._message.id),
       this._commandMessage
     );
     this._commandMessage["_responseMessage"] = result;

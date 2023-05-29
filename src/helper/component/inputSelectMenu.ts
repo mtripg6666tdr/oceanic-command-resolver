@@ -1,4 +1,6 @@
-import { ComponentTypes, MentionableSelectMenu, RoleSelectMenu, SelectOption, UserSelectMenu } from "oceanic.js";
+import type { ComponentTypes, MentionableSelectMenu, RoleSelectMenu, UserSelectMenu } from "oceanic.js";
+
+
 import { MessageActionRowComponentsBuilder } from "./actionRowComponent";
 
 /**
@@ -10,7 +12,7 @@ export class MessageInputSelectMenuBuilder extends MessageActionRowComponentsBui
   private _maxValues: number|undefined;
   private _minValues: number|undefined;
   private _placeholder: string|undefined;
-  private _type: ComponentTypes.USER_SELECT | ComponentTypes.MENTIONABLE_SELECT | ComponentTypes.ROLE_SELECT = 0 as any;
+  private readonly _type: ComponentTypes.USER_SELECT | ComponentTypes.MENTIONABLE_SELECT | ComponentTypes.ROLE_SELECT = 0 as any;
 
   constructor(_type: ComponentTypes.USER_SELECT | ComponentTypes.MENTIONABLE_SELECT | ComponentTypes.ROLE_SELECT);
   constructor(_data: UserSelectMenu | MentionableSelectMenu | RoleSelectMenu);
@@ -52,34 +54,34 @@ export class MessageInputSelectMenuBuilder extends MessageActionRowComponentsBui
     return this._type;
   }
 
-  setCustomId(customId:string){
+  setCustomId(customId: string){
     this._customId = customId;
     return this;
   }
 
-  setDisabled(disabled:boolean = true){
+  setDisabled(disabled: boolean = true){
     this._disabled = disabled;
     return this;
   }
 
-  setMaxValues(maxValues:number){
+  setMaxValues(maxValues: number){
     this._maxValues = maxValues;
     return this;
   }
 
-  setMinValues(minValues:number){
+  setMinValues(minValues: number){
     this._minValues = minValues;
     return this;
   }
 
-  setPlaceholder(placeholder:string){
+  setPlaceholder(placeholder: string){
     this._placeholder = placeholder;
     return this;
   }
 
   toOceanic(): UserSelectMenu | MentionableSelectMenu | RoleSelectMenu {
     if(!this._customId){
-      throw new Error("No customId specifed")
+      throw new Error("No customId specifed");
     }
     return {
       customID: this._customId,
@@ -88,6 +90,6 @@ export class MessageInputSelectMenuBuilder extends MessageActionRowComponentsBui
       minValues: this._minValues,
       placeholder: this._placeholder,
       type: this._type,
-    }
+    };
   }
 }

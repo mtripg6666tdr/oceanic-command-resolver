@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "@mtripg6666tdr/eslint-config/nodejs-typescript"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "node/no-unsupported-features/es-syntax": "off"
+  }
+}

@@ -1,8 +1,10 @@
 import type { MessageActionRowComponentsBuilder } from "./actionRowComponent";
+import type { MessageActionRow } from "oceanic.js";
 
-import { MessageActionRow, ComponentTypes } from "oceanic.js";
-import { HelperBase } from "../base";
+import { ComponentTypes } from "oceanic.js";
+
 import { MessageButtonBuilder } from "./button";
+import { HelperBase } from "../base";
 
 export type AnyMessageActionRowComponentsBuilder = MessageActionRowComponentsBuilder<any>;
 
@@ -10,10 +12,10 @@ export type AnyMessageActionRowComponentsBuilder = MessageActionRowComponentsBui
  * a helper to build ActionRow for oceanic.js
  */
 export class MessageActionRowBuilder extends HelperBase<MessageActionRow>{
-  private readonly _type:ComponentTypes.ACTION_ROW = ComponentTypes.ACTION_ROW;
-  private _components:AnyMessageActionRowComponentsBuilder[] = [];
+  private readonly _type: ComponentTypes.ACTION_ROW = ComponentTypes.ACTION_ROW;
+  private _components: AnyMessageActionRowComponentsBuilder[] = [];
 
-  get components():Readonly<AnyMessageActionRowComponentsBuilder[]>{
+  get components(): Readonly<AnyMessageActionRowComponentsBuilder[]>{
     return this._components;
   }
 
@@ -21,17 +23,17 @@ export class MessageActionRowBuilder extends HelperBase<MessageActionRow>{
     return this._type;
   }
 
-  addComponents(...components:AnyMessageActionRowComponentsBuilder[]){
+  addComponents(...components: AnyMessageActionRowComponentsBuilder[]){
     this._components.push(...components);
     return this;
   }
 
-  setComponents(...components:AnyMessageActionRowComponentsBuilder[]){
+  setComponents(...components: AnyMessageActionRowComponentsBuilder[]){
     this._components = components;
     return this;
   }
 
-  spliceComponents(index:number, deleteCount:number, ...components:AnyMessageActionRowComponentsBuilder[]){
+  spliceComponents(index: number, deleteCount: number, ...components: AnyMessageActionRowComponentsBuilder[]){
     return this._components.splice(index, deleteCount, ...components);
   }
 

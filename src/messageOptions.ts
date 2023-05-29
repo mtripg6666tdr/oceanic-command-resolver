@@ -5,5 +5,5 @@ export type MessageOptions = CreateMessageOptions & {
   /**
    * Whether or not editing the message that components attached to
    */
-  editOriginalMessage?:boolean,
+  editOriginalMessage?: boolean,
 };

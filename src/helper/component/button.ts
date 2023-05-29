@@ -1,7 +1,10 @@
-import { ButtonComponent, ComponentTypes, Constants, NullablePartialEmoji, PartialEmoji } from "oceanic.js";
+import type { ButtonComponent, NullablePartialEmoji, PartialEmoji } from "oceanic.js";
+
+import { ComponentTypes, Constants } from "oceanic.js";
+
 import { MessageActionRowComponentsBuilder } from "./actionRowComponent";
 
-export type ButtonStyles = 
+export type ButtonStyles =
   |"PRIMARY"
   |"SECONDARY"
   |"SUCCESS"
@@ -13,15 +16,15 @@ export type ButtonStyles =
  * a helper to build Button for oceanic.js
  */
 export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<ButtonComponent> {
-  private _customId:string|undefined = undefined;
-  private _disabled:boolean = false;
-  private _emoji:NullablePartialEmoji|undefined = undefined;
-  private _label:string|undefined = undefined;
-  private _style:ButtonStyles|undefined = undefined;
-  private _type:ComponentTypes.BUTTON = ComponentTypes.BUTTON;
-  private _url:string|undefined = undefined;
+  private _customId: string|undefined = undefined;
+  private _disabled: boolean = false;
+  private _emoji: NullablePartialEmoji|undefined = undefined;
+  private _label: string|undefined = undefined;
+  private _style: ButtonStyles|undefined = undefined;
+  private readonly _type: ComponentTypes.BUTTON = ComponentTypes.BUTTON;
+  private _url: string|undefined = undefined;
 
-  constructor(_data?:ButtonComponent){
+  constructor(_data?: ButtonComponent){
     super();
     if(_data){
       if(_data.style === Constants.ButtonStyles.LINK){
@@ -29,7 +32,7 @@ export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<Butt
       }else{
         this._customId = _data.customID;
       }
-      this._disabled = _data.disabled || false;;
+      this._disabled = _data.disabled || false;
       this._emoji = _data.emoji;
       this._label = _data.label;
       this._style = (Object.keys(Constants.ButtonStyles) as (keyof typeof Constants["ButtonStyles"])[]).find(key => Constants.ButtonStyles[key] === _data.style);
@@ -64,23 +67,23 @@ export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<Butt
     return this._url;
   }
 
-  setCustomId(customId:string){
+  setCustomId(customId: string){
     this._customId = customId;
     return this;
   }
 
-  setDisabled(disabled:boolean = true){
+  setDisabled(disabled: boolean = true){
     this._disabled = disabled;
     return this;
   }
 
-  setEmoji(emoji:string|Partial<PartialEmoji>){
+  setEmoji(emoji: string|Partial<PartialEmoji>){
     if(typeof emoji === "string"){
       if(!emoji) throw new Error("invalid emoji");
       this._emoji = {
         name: emoji,
         id: null,
-      }
+      };
     }else{
       if(!emoji.name) throw new Error("invalid emoji");
       this._emoji = Object.assign({
@@ -90,17 +93,17 @@ export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<Butt
     return this;
   }
 
-  setLabel(label:string){
+  setLabel(label: string){
     this._label = label;
     return this;
   }
 
-  setStyle(style:ButtonStyles){
+  setStyle(style: ButtonStyles){
     this._style = style;
     return this;
   }
 
-  setUrl(url:string){
+  setUrl(url: string){
     this._url = url;
     return this;
   }

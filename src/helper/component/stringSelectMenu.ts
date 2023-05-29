@@ -1,4 +1,7 @@
-import { ComponentTypes, SelectOption, StringSelectMenu, StringSelectMenuOptions } from "oceanic.js";
+import type { SelectOption, StringSelectMenu } from "oceanic.js";
+
+import { ComponentTypes } from "oceanic.js";
+
 import { MessageActionRowComponentsBuilder } from "./actionRowComponent";
 
 /**
@@ -11,7 +14,7 @@ export class MessageStringSelectMenuBuilder extends MessageActionRowComponentsBu
   private _minValues: number|undefined;
   private _options: SelectOption[] = [];
   private _placeholder: string|undefined;
-  private _type: ComponentTypes.STRING_SELECT = ComponentTypes.STRING_SELECT;
+  private readonly _type: ComponentTypes.STRING_SELECT = ComponentTypes.STRING_SELECT;
 
   constructor(_data?: StringSelectMenu){
     super();
@@ -42,7 +45,7 @@ export class MessageStringSelectMenuBuilder extends MessageActionRowComponentsBu
     return this._minValues;
   }
 
-  get options():Readonly<SelectOption[]>{
+  get options(): Readonly<SelectOption[]>{
     return this._options;
   }
 
@@ -59,22 +62,22 @@ export class MessageStringSelectMenuBuilder extends MessageActionRowComponentsBu
     return this;
   }
 
-  setCustomId(customId:string){
+  setCustomId(customId: string){
     this._customId = customId;
     return this;
   }
 
-  setDisabled(disabled:boolean = true){
+  setDisabled(disabled: boolean = true){
     this._disabled = disabled;
     return this;
   }
 
-  setMaxValues(maxValues:number){
+  setMaxValues(maxValues: number){
     this._maxValues = maxValues;
     return this;
   }
 
-  setMinValues(minValues:number){
+  setMinValues(minValues: number){
     this._minValues = minValues;
     return this;
   }
@@ -84,18 +87,18 @@ export class MessageStringSelectMenuBuilder extends MessageActionRowComponentsBu
     return this;
   }
 
-  setPlaceholder(placeholder:string){
+  setPlaceholder(placeholder: string){
     this._placeholder = placeholder;
     return this;
   }
 
-  spliceOptions(index:number, deleteCount:number, ...options: SelectOption[]){
+  spliceOptions(index: number, deleteCount: number, ...options: SelectOption[]){
     return this._options.splice(index, deleteCount, ...options);
   }
 
   toOceanic(): StringSelectMenu {
     if(!this._customId){
-      throw new Error("No customId specifed")
+      throw new Error("No customId specifed");
     }
     return {
       customID: this._customId,
@@ -105,6 +108,6 @@ export class MessageStringSelectMenuBuilder extends MessageActionRowComponentsBu
       options: this._options,
       placeholder: this._placeholder,
       type: this._type,
-    }
+    };
   }
 }

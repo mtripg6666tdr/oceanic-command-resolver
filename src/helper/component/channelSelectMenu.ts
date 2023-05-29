@@ -1,4 +1,7 @@
-import { ChannelSelectMenu, ChannelTypes, ComponentTypes } from "oceanic.js";
+import type { ChannelSelectMenu, ChannelTypes } from "oceanic.js";
+
+import { ComponentTypes } from "oceanic.js";
+
 import { MessageActionRowComponentsBuilder } from "./actionRowComponent";
 
 /**
@@ -11,7 +14,7 @@ export class MessageChannelSelectMenuBuilder extends MessageActionRowComponentsB
   private _minValues: number|undefined;
   private _channelTypes: ChannelTypes[] = [];
   private _placeholder: string|undefined;
-  private _type: ComponentTypes.CHANNEL_SELECT = ComponentTypes.CHANNEL_SELECT;
+  private readonly _type: ComponentTypes.CHANNEL_SELECT = ComponentTypes.CHANNEL_SELECT;
 
   constructor(_data?: ChannelSelectMenu){
     super();
@@ -42,7 +45,7 @@ export class MessageChannelSelectMenuBuilder extends MessageActionRowComponentsB
     return this._minValues;
   }
 
-  get channelTypes():Readonly<ChannelTypes[]>{
+  get channelTypes(): Readonly<ChannelTypes[]>{
     return this._channelTypes;
   }
 
@@ -59,22 +62,22 @@ export class MessageChannelSelectMenuBuilder extends MessageActionRowComponentsB
     return this;
   }
 
-  setCustomId(customId:string){
+  setCustomId(customId: string){
     this._customId = customId;
     return this;
   }
 
-  setDisabled(disabled:boolean = true){
+  setDisabled(disabled: boolean = true){
     this._disabled = disabled;
     return this;
   }
 
-  setMaxValues(maxValues:number){
+  setMaxValues(maxValues: number){
     this._maxValues = maxValues;
     return this;
   }
 
-  setMinValues(minValues:number){
+  setMinValues(minValues: number){
     this._minValues = minValues;
     return this;
   }
@@ -84,18 +87,18 @@ export class MessageChannelSelectMenuBuilder extends MessageActionRowComponentsB
     return this;
   }
 
-  setPlaceholder(placeholder:string){
+  setPlaceholder(placeholder: string){
     this._placeholder = placeholder;
     return this;
   }
 
-  spliceOptions(index:number, deleteCount:number, ...options: ChannelTypes[]){
+  spliceOptions(index: number, deleteCount: number, ...options: ChannelTypes[]){
     return this._channelTypes.splice(index, deleteCount, ...options);
   }
 
   toOceanic(): ChannelSelectMenu {
     if(!this._customId){
-      throw new Error("No customId specifed")
+      throw new Error("No customId specifed");
     }
     return {
       customID: this._customId,
@@ -105,6 +108,6 @@ export class MessageChannelSelectMenuBuilder extends MessageActionRowComponentsB
       channelTypes: this._channelTypes,
       placeholder: this._placeholder,
       type: this._type,
-    }
+    };
   }
 }

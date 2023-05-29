@@ -4,19 +4,20 @@
  */
 
 import type { EmbedAuthorOptions, EmbedField, EmbedFooter, EmbedFooterOptions, EmbedImageOptions, EmbedOptions } from "oceanic.js";
+
 import { HelperBase } from "./base";
 
 export type ColorResolvable = number|[number, number, number];
 
 export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
-  private data:EmbedOptions = {};
+  private readonly data: EmbedOptions = {};
 
-  constructor(_data?:EmbedOptions){
+  constructor(_data?: EmbedOptions){
     super();
     if(_data) this.data = Object.assign({}, _data);
   }
 
-  get author():Readonly<EmbedAuthorOptions>|undefined{
+  get author(): Readonly<EmbedAuthorOptions>|undefined{
     return this.data.author;
   }
 
@@ -32,11 +33,11 @@ export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
     return this.data.description;
   }
 
-  get fields():Readonly<EmbedField[]>{
+  get fields(): Readonly<EmbedField[]>{
     return this.data.fields || [];
   }
 
-  get footer():Readonly<EmbedFooterOptions>|undefined{
+  get footer(): Readonly<EmbedFooterOptions>|undefined{
     return this.data.footer;
   }
 
@@ -48,27 +49,27 @@ export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
     }
   }
 
-  get image():Readonly<EmbedImageOptions>|undefined{
+  get image(): Readonly<EmbedImageOptions>|undefined{
     return this.data.image;
   }
 
   get length(){
     return (
-      (this.title?.length ?? 0) +
-      (this.description?.length ?? 0) +
-      (this.fields && this.fields.length >= 1
+      (this.title?.length ?? 0)
+      + (this.description?.length ?? 0)
+      + (this.fields && this.fields.length >= 1
         ? this.fields.reduce((prev, curr) => prev + curr.name.length + curr.value.length, 0)
-        : 0) +
-      (this.footer?.text.length ?? 0) +
-      (this.author?.name.length ?? 0)
+        : 0)
+      + (this.footer?.text.length ?? 0)
+      + (this.author?.name.length ?? 0)
     );
   }
 
-  get thumbnail():Readonly<EmbedImageOptions>|undefined{
+  get thumbnail(): Readonly<EmbedImageOptions>|undefined{
     return this.data.thumbnail;
   }
 
-  get timestamp():Readonly<string|Date>{
+  get timestamp(): Readonly<string|Date>{
     return this.timestamp;
   }
 
@@ -76,39 +77,39 @@ export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
     return this.data.title;
   }
 
-  addField(name:string, value:string, inline?:boolean){
-    (this.data.fields = this.data.fields || []).push({name, value, inline: !!inline});
+  addField(name: string, value: string, inline?: boolean){
+    (this.data.fields = this.data.fields || []).push({ name, value, inline: !!inline });
     return this;
   }
 
-  addFields(...fields:EmbedField[]){
+  addFields(...fields: EmbedField[]){
     (this.data.fields = this.data.fields || []).push(...fields);
     return this;
   }
 
-  equals(embed:MessageEmbedBuilder|EmbedOptions){
+  equals(embed: MessageEmbedBuilder|EmbedOptions){
     return (
-      this.author?.name === embed.author?.name &&
-      this.author?.url === embed.author?.url &&
-      this.author?.iconURL === (embed.author?.iconURL ?? embed.author?.iconURL) &&
-      this.color === embed.color &&
-      this.title === embed.title &&
-      this.description === embed.description &&
-      this.timestamp === embed.timestamp &&
-      this.fields.length === (embed.fields?.length || 0) &&
-      (this.fields.length === 0 || this.fields.every((field, i) => {
+      this.author?.name === embed.author?.name
+      && this.author?.url === embed.author?.url
+      && this.author?.iconURL === (embed.author?.iconURL ?? embed.author?.iconURL)
+      && this.color === embed.color
+      && this.title === embed.title
+      && this.description === embed.description
+      && this.timestamp === embed.timestamp
+      && this.fields.length === (embed.fields?.length || 0)
+      && (this.fields.length === 0 || this.fields.every((field, i) => {
         const a = field;
         const b = embed.fields?.[i] || undefined;
         return a.name === b?.name && a.value === b.value && !!a.inline === !!b.inline;
-      })) &&
-      this.footer?.text === embed.footer?.text &&
-      this.footer?.iconURL === embed.footer?.iconURL &&
-      this.image?.url === embed.image?.url &&
-      this.thumbnail?.url === embed.thumbnail?.url
+      }))
+      && this.footer?.text === embed.footer?.text
+      && this.footer?.iconURL === embed.footer?.iconURL
+      && this.image?.url === embed.image?.url
+      && this.thumbnail?.url === embed.thumbnail?.url
     );
   }
 
-  setAuthor(author:string|EmbedAuthorOptions){
+  setAuthor(author: string|EmbedAuthorOptions){
     if(!this.data.author) this.data.author = {} as EmbedAuthorOptions;
     if(typeof author === "string"){
       this.data.author.name = author;
@@ -120,7 +121,7 @@ export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
     return this;
   }
 
-  setColor(color:ColorResolvable){
+  setColor(color: ColorResolvable){
     if(typeof color === "number"){
       if(color < 0x0 || 0xffffff < color) throw new Error("invalid color specified");
       this.data.color = color;
@@ -131,32 +132,32 @@ export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
     return this;
   }
 
-  setDescription(description:string){
+  setDescription(description: string){
     this.data.description = description;
     return this;
   }
 
-  setFields(...fields:EmbedField[]){
+  setFields(...fields: EmbedField[]){
     this.data.fields = fields;
     return this;
   }
 
-  setFooter(footer:EmbedFooter){
+  setFooter(footer: EmbedFooter){
     this.data.footer = footer;
     return this;
   }
 
-  setImage(url:string){
-    this.data.image = {url};
+  setImage(url: string){
+    this.data.image = { url };
     return this;
   }
 
-  setThumbnail(url:string){
-    this.data.thumbnail = {url};
+  setThumbnail(url: string){
+    this.data.thumbnail = { url };
     return this;
   }
 
-  setTimestamp(timestamp:Date|number|undefined){
+  setTimestamp(timestamp: Date|number|undefined){
     if(!timestamp){
       this.data.timestamp = undefined;
       return this;
@@ -167,17 +168,17 @@ export class MessageEmbedBuilder extends HelperBase<EmbedOptions> {
     }
   }
 
-  setTitle(title:string){
+  setTitle(title: string){
     this.data.title = title;
     return this;
   }
 
-  setURL(url:string){
+  setURL(url: string){
     this.data.url = url;
     return this;
   }
 
-  spliceFields(index:number, deleteCount:number, ...fields:EmbedField[]){
+  spliceFields(index: number, deleteCount: number, ...fields: EmbedField[]){
     return (this.data.fields || []).splice(index, deleteCount, ...fields);
   }
 
