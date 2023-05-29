@@ -1,4 +1,4 @@
-import { AnyGuildTextChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, InteractionTypes, Message, ModalSubmitInteraction } from "oceanic.js";
+import { AnyTextableGuildChannel, CommandInteraction, ComponentInteraction, EditMessageOptions, InteractionTypes, Message, ModalSubmitInteraction } from "oceanic.js";
 import type { CommandMessage } from "./CommandMessage";
 
 import { createMessageUrl } from "./util";
@@ -8,8 +8,8 @@ import { createMessageUrl } from "./util";
  */
 export class ResponseMessage {
   protected isMessage = false;
-  protected _interaction: CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>|null = null;
-  protected _message: Message<AnyGuildTextChannel> = null!;
+  protected _interaction: CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>|null = null;
+  protected _message: Message<AnyTextableGuildChannel> = null!;
   protected _commandMessage: CommandMessage = null!;
   protected constructor(){}
 
@@ -19,7 +19,7 @@ export class ResponseMessage {
    * @returns new ResponseMessage instance
    * @internal
    */
-  static createFromMessage(message: Message<AnyGuildTextChannel>, commandMessage: CommandMessage){
+  static createFromMessage(message: Message<AnyTextableGuildChannel>, commandMessage: CommandMessage){
     if(message.author.id !== message.channel.client.user.id) 
       throw new Error("Message is not the response message");
     const me = new ResponseMessage();
@@ -38,8 +38,8 @@ export class ResponseMessage {
    * @internal
    */
   static createFromInteraction(
-    interaction:CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>,
-    message:Message<AnyGuildTextChannel>,
+    interaction:CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>,
+    message:Message<AnyTextableGuildChannel>,
     commandMessage:CommandMessage
   ){
     const me = new ResponseMessage();
@@ -84,7 +84,7 @@ export class ResponseMessage {
           repliedUser: false,
         }
       }, _opt));
-      const result = ResponseMessage.createFromInteraction(this._interaction!, mes as Message<AnyGuildTextChannel>, this._commandMessage);
+      const result = ResponseMessage.createFromInteraction(this._interaction!, mes as Message<AnyTextableGuildChannel>, this._commandMessage);
       this._commandMessage["_responseMessage"] = result;
       return result;
     }
@@ -218,7 +218,7 @@ export class ResponseMessage {
    */
   async fetch(){
     const result = ResponseMessage.createFromMessage(
-      await this._message.channel.client.rest.channels.getMessage(this._message.channel.id, this._message.id) as Message<AnyGuildTextChannel>,
+      await this._message.channel.client.rest.channels.getMessage(this._message.channel.id, this._message.id) as Message<AnyTextableGuildChannel>,
       this._commandMessage
     );
     this._commandMessage["_responseMessage"] = result;

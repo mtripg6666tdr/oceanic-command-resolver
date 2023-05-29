@@ -1,4 +1,4 @@
-import { ButtonComponent, ComponentTypes, Constants, PartialEmoji } from "oceanic.js";
+import { ButtonComponent, ComponentTypes, Constants, NullablePartialEmoji, PartialEmoji } from "oceanic.js";
 import { MessageActionRowComponentsBuilder } from "./actionRowComponent";
 
 export type ButtonStyles = 
@@ -15,7 +15,7 @@ export type ButtonStyles =
 export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<ButtonComponent> {
   private _customId:string|undefined = undefined;
   private _disabled:boolean = false;
-  private _emoji:PartialEmoji|undefined = undefined;
+  private _emoji:NullablePartialEmoji|undefined = undefined;
   private _label:string|undefined = undefined;
   private _style:ButtonStyles|undefined = undefined;
   private _type:ComponentTypes.BUTTON = ComponentTypes.BUTTON;

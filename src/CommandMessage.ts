@@ -1,5 +1,5 @@
 import {
-  AnyGuildTextChannel,
+  AnyTextableGuildChannel,
   ApplicationCommandInteractionData,
   ApplicationCommandOptionTypes,
   Client, CommandInteraction,
@@ -22,8 +22,8 @@ import { createMessageUrl } from "./util";
  */
 export class CommandMessage {
   protected isMessage = false;
-  protected _message: Message<AnyGuildTextChannel>|null = null;
-  protected _interaction: CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>|null = null!;
+  protected _message: Message<AnyTextableGuildChannel>|null = null;
+  protected _interaction: CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>|null = null!;
   protected _interactionOption: InteractionOptions[]|null = null;
   protected _interactionReplied = false;
   protected _client: Client = null!;
@@ -38,7 +38,7 @@ export class CommandMessage {
    * @param message Message an user sent that contains command
    * @returns new CommandMessage instance
    */
-  static createFromMessage(message:Message<AnyGuildTextChannel>, prefixLength:number = 1){
+  static createFromMessage(message:Message<AnyTextableGuildChannel>, prefixLength:number = 1){
     const me = new CommandMessage();
     me.isMessage = true;
     me._message = message;
@@ -50,7 +50,7 @@ export class CommandMessage {
     return me;
   }
 
-  protected static createFromMessageWithParsed(message:Message<AnyGuildTextChannel>, command:string, options:string[], rawOptions:string){
+  protected static createFromMessageWithParsed(message:Message<AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string){
     const me = new CommandMessage();
     me.isMessage = true;
     me._message = message;
@@ -61,16 +61,16 @@ export class CommandMessage {
     return me;
   }
 
-  static createFromInteraction(interaction:CommandInteraction<AnyGuildTextChannel>):CommandMessage;
-  static createFromInteraction(interaction:ComponentInteraction<any, AnyGuildTextChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
-  static createFromInteraction(interaction:ModalSubmitInteraction<AnyGuildTextChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
+  static createFromInteraction(interaction:CommandInteraction<AnyTextableGuildChannel>):CommandMessage;
+  static createFromInteraction(interaction:ComponentInteraction<any, AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
+  static createFromInteraction(interaction:ModalSubmitInteraction<AnyTextableGuildChannel>, command:string, options:string[], rawOptions:string):CommandMessage;
   /**
    * Initialize this from interaction
    * @param interaction Interaction that contains command
    * @returns If interaction has already been defered, this will return new CommandMessage. otherwise return Promise<CommandMessage>
    */
   static createFromInteraction(
-    interaction:CommandInteraction<AnyGuildTextChannel>|ComponentInteraction<any, AnyGuildTextChannel>|ModalSubmitInteraction<AnyGuildTextChannel>,
+    interaction:CommandInteraction<AnyTextableGuildChannel>|ComponentInteraction<any, AnyTextableGuildChannel>|ModalSubmitInteraction<AnyTextableGuildChannel>,
     command?:string,
     options?:string[],
     rawOptions?:string
@@ -105,7 +105,7 @@ export class CommandMessage {
     return me;
   }
 
-  private static resolveSubCommandRecursively(interaction: CommandInteraction<AnyGuildTextChannel>){
+  private static resolveSubCommandRecursively(interaction: CommandInteraction<AnyTextableGuildChannel>){
     let commandNameFragments: string[] = [interaction.data.name];
     let options: InteractionOptions[] = interaction.data.options.raw;
     while(options && options[0] && (options[0].type === ApplicationCommandOptionTypes.SUB_COMMAND_GROUP || options![0].type === ApplicationCommandOptionTypes.SUB_COMMAND)){
@@ -149,7 +149,7 @@ export class CommandMessage {
         },
       }));
 
-      return this._responseMessage = ResponseMessage.createFromMessage(msg as Message<AnyGuildTextChannel>, this);
+      return this._responseMessage = ResponseMessage.createFromMessage(msg as Message<AnyTextableGuildChannel>, this);
     }else{
       if(this._interactionReplied){
         throw new Error("Target message was already replied");
@@ -160,7 +160,7 @@ export class CommandMessage {
       let _opt: MessageOptions = typeof options === "string" ? {content: options} : Object.assign({}, options);
       delete _opt.ephemeral;
       delete _opt.editOriginalMessage;
-      let mes:Message<AnyGuildTextChannel>  = null!;
+      let mes:Message<AnyTextableGuildChannel>  = null!;
 
       if(this._interaction.type === InteractionTypes.APPLICATION_COMMAND || (typeof options === "object" && options.editOriginalMessage)){
         if(this._interaction.acknowledged){
@@ -192,7 +192,7 @@ export class CommandMessage {
         mes = await this._interaction.getOriginal();
       }
       this._interactionReplied = true;
-      return this._responseMessage = ResponseMessage.createFromInteraction(this._interaction, mes as Message<AnyGuildTextChannel>, this);
+      return this._responseMessage = ResponseMessage.createFromInteraction(this._interaction, mes as Message<AnyTextableGuildChannel>, this);
     }
   }
 
@@ -212,7 +212,7 @@ export class CommandMessage {
     if(this.isMessage){
       return CommandMessage.createFromMessageWithParsed(await this._message!.edit({
         flags: suppress ? this._message!.flags | MessageFlags.SUPPRESS_EMBEDS : this._message!.flags ^ MessageFlags.SUPPRESS_EMBEDS,
-      }) as Message<AnyGuildTextChannel>, this._command, this._options, this._rawOptions);
+      }) as Message<AnyTextableGuildChannel>, this._command, this._options, this._rawOptions);
     }else{
       return this;
     }
