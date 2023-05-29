@@ -1,8 +1,7 @@
 {
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "allowJs": false,
     "module": "CommonJS",
-    "target": "ES2019",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,

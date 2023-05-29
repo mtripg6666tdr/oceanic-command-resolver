@@ -24,12 +24,13 @@
   "author": "mtripg6666tdr",
   "license": "MIT",
   "devDependencies": {
+    "@tsconfig/node16": "^1.0.4",
     "@types/node": "^20.1.0",
     "@types/ws": "^8.5.4",
     "dotenv": "^16.0.3",
     "oceanic.js": "^1.7.0",
     "rimraf": "^5.0.0",
-    "typedoc": "^0.24.6",
+    "typedoc": "^0.24.7",
     "typescript": "^5.0.4"
   },
   "peerDependencies": {
