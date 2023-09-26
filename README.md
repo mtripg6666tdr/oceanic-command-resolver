@@ -50,12 +50,7 @@ You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic
 |>=1.2.0 <1.3.0          |>=1.7.0 <1.8.0|
 |>=1.3.0 <1.4.0          |>=1.8.0 <1.9.0|
 
-> As of May 29, 2023
-
-## Related
-Packages based on the theory
-* [djs-command-resolver](https://github.com/mtripg6666tdr/djs-command-resolver) (*\*deprecated*) - for discord.js
-* [eris-command-resolver](https://github.com/mtripg6666tdr/eris-command-resolver) - for eris
+> As of Sep 26, 2023
 
 ## License
 [LICENSE](LICENSE)
