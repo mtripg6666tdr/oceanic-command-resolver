@@ -191,9 +191,9 @@ export class CommandMessage {
           mes = await this._interaction.editOriginal(_opt);
         }else if(_opt.files){
           await this._interaction.defer();
-          mes = await this._interaction.createFollowup(Object.assign(_opt, {
+          mes = (await this._interaction.createFollowup(Object.assign(_opt, {
             flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
-          }));
+          }))).message;
         }else{
           await this._interaction.createMessage(Object.assign(_opt, {
             flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
@@ -206,9 +206,9 @@ export class CommandMessage {
         }, _opt));
         mes = await this._interaction.getOriginal();
       }else if(this._interaction.acknowledged){
-        mes = await this._interaction.createFollowup(Object.assign({
+        mes = (await this._interaction.createFollowup(Object.assign({
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
-        }, _opt));
+        }, _opt))).message;
       }else{
         await this._interaction.createMessage(Object.assign({
           flags: typeof options === "object" && options.ephemeral ? MessageFlags.EPHEMERAL : undefined,
@@ -227,7 +227,7 @@ export class CommandMessage {
   get response(): ResponseMessage{
     return this._responseMessage;
   }
-  
+
   /**
    * Set suppress of the embed of command message
    * @param suppress if true suppressed, otherwise false
