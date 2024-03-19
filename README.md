@@ -51,7 +51,7 @@ You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic
 |>=1.3.0 <1.4.0          |>=1.8.0 <1.9.0 |
 |>=1.4.0 <1.5.0          |>=1.9.0 <1.11.0|
 
-> As of Mar 2, 2024
+> As of Mar 19, 2024
 
 ## License
 [LICENSE](LICENSE)
