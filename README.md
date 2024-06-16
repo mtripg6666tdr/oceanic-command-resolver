@@ -47,11 +47,11 @@ You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic
 |oceanic-command-resolver|oceanic.js     |
 |------------------------|---------------|
 |>=1.0.0 <1.2.0          |>=1.5.0 <1.7.0 |
-|>=1.2.0 <1.3.0          |>=1.7.0 <1.8.0 |
-|>=1.3.0 <1.4.0          |>=1.8.0 <1.9.0 |
-|>=1.4.0 <1.5.0          |>=1.9.0 <1.11.0|
+|^1.2.0                  |>=1.7.0 <1.8.0 |
+|^1.3.0                  |>=1.8.0 <1.9.0 |
+|^1.4.0                  |>=1.9.0 <1.12.0|
 
-> As of Mar 19, 2024
+> As of Jun 16, 2024
 
 ## License
 [LICENSE](LICENSE)
