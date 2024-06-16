@@ -1,6 +1,6 @@
 {
   "name": "@mtripg6666tdr/oceanic-command-resolver",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Message wrapper for oceanic.js to absorb the differences between Message and Interactions, with some helper classes included",
   "main": "dist/index.js",
   "exports": {
