@@ -1,4 +1,4 @@
-import type { ButtonComponent, NullablePartialEmoji, PartialEmoji } from "oceanic.js";
+import type { ButtonComponent, NullablePartialEmoji, PartialEmoji, TextButton, URLButton } from "oceanic.js";
 
 import { ComponentTypes, Constants } from "oceanic.js";
 
@@ -11,20 +11,21 @@ export type ButtonStyles =
   |"DANGER"
   |"LINK"
 ;
+export type NormalButtonComponent = Extract<ButtonComponent, TextButton | URLButton>;
 
 /**
  * a helper to build Button for oceanic.js
  */
-export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<ButtonComponent> {
-  private _customId: string|undefined = undefined;
+export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<NormalButtonComponent> {
+  private _customId: string | undefined = undefined;
   private _disabled: boolean = false;
-  private _emoji: NullablePartialEmoji|undefined = undefined;
-  private _label: string|undefined = undefined;
-  private _style: ButtonStyles|undefined = undefined;
+  private _emoji: NullablePartialEmoji | undefined = undefined;
+  private _label: string | undefined = undefined;
+  private _style: ButtonStyles | undefined = undefined;
   private readonly _type: ComponentTypes.BUTTON = ComponentTypes.BUTTON;
-  private _url: string|undefined = undefined;
+  private _url: string | undefined = undefined;
 
-  constructor(_data?: ButtonComponent){
+  constructor(_data?: NormalButtonComponent){
     super();
     if(_data){
       if(_data.style === Constants.ButtonStyles.LINK){
@@ -35,7 +36,7 @@ export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<Butt
       this._disabled = _data.disabled || false;
       this._emoji = _data.emoji;
       this._label = _data.label;
-      this._style = (Object.keys(Constants.ButtonStyles) as (keyof typeof Constants["ButtonStyles"])[]).find(key => Constants.ButtonStyles[key] === _data.style);
+      this._style = (Object.keys(Constants.ButtonStyles) as Exclude<keyof typeof Constants["ButtonStyles"], "PREMIUM">[]).find(key => Constants.ButtonStyles[key] === _data.style);
     }
   }
 
@@ -108,7 +109,7 @@ export class MessageButtonBuilder extends MessageActionRowComponentsBuilder<Butt
     return this;
   }
 
-  toOceanic(): ButtonComponent {
+  toOceanic(): NormalButtonComponent {
     if(this.style === "LINK"){
       if(!this._url){
         throw new Error("No url specified");

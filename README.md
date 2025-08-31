@@ -44,14 +44,15 @@ You can see the full api document [here](https://mtripg6666tdr.github.io/oceanic
 
 ## Versions
 
-|oceanic-command-resolver|oceanic.js     |
-|------------------------|---------------|
-|>=1.0.0 <1.2.0          |>=1.5.0 <1.7.0 |
-|^1.2.0                  |>=1.7.0 <1.8.0 |
-|^1.3.0                  |>=1.8.0 <1.9.0 |
-|^1.4.0                  |>=1.9.0 <1.12.0|
+|oceanic-command-resolver|oceanic.js      |
+|------------------------|----------------|
+|>=1.0.0 <1.2.0          |>=1.5.0 <1.7.0  |
+|^1.2.0                  |>=1.7.0 <1.8.0  |
+|^1.3.0                  |>=1.8.0 <1.9.0  |
+|^1.4.0                  |>=1.9.0 <1.12.0 |
+|^1.5.0                  |>=1.12.0 <1.13.0|
 
-> As of Jun 16, 2024
+> As of Sep 1, 2025
 
 ## License
 [LICENSE](LICENSE)
